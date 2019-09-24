@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.1.8.RELEASE'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group 'test.jetty'
+version = '1.0-SNAPSHOT'
+
+tasks.withType(JavaCompile) {
+    sourceCompatibility = 8
+    targetCompatibility = 8
+    options.encoding = 'UTF-8'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-jetty'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
+    compile(group: 'org.springframework.boot', name: 'spring-boot-starter-web') {
+        exclude(module: 'spring-boot-starter-tomcat')
+    }
+    compile(group: 'org.springframework.boot', name: 'spring-boot-starter-jersey') {
+        exclude(module: 'spring-boot-starter-tomcat')
+        exclude(module: 'aopalliance-repackaged')
+        exclude(module: 'asm-all-repackaged')
+    }
+
+    compile(group: 'org.glassfish.jersey.connectors', name: 'jersey-apache-connector') {
+        exclude(module: 'aopalliance-repackaged')
+    }
+}
+
+bootRun {
+    main = 'test.jetty.Server'
+}
+
