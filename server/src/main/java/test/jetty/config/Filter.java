@@ -3,6 +3,7 @@ package test.jetty.config;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -11,6 +12,11 @@ import org.springframework.stereotype.Component;
 // uncomment to enable
 //@Component
 public class Filter implements javax.servlet.Filter {
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException
+    {
+    }
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         try {
@@ -25,4 +31,8 @@ public class Filter implements javax.servlet.Filter {
         }
     }
 
+    @Override
+    public void destroy()
+    {
+    }
 }
