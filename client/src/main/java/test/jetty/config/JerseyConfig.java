@@ -1,6 +1,7 @@
 package test.jetty.config;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,7 @@ public class JerseyConfig extends ResourceConfig {
     public ObjectMapper restObjectMapper() {
         ObjectMapper restObjectMapper = new ObjectMapper();
         restObjectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        restObjectMapper.enable(DeserializationFeature.FAIL_ON_TRAILING_TOKENS);
         return restObjectMapper;
     }
 }
